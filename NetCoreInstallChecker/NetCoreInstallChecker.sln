@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30404.54
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreInstallChecker", "NetCoreInstallChecker\NetCoreInstallChecker.csproj", "{4114DF6C-5AFD-427B-899E-95AC8898F692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreInstallChecker.Tests", "NetCoreInstallChecker.Tests\NetCoreInstallChecker.Tests.csproj", "{FDE82B48-0D7C-4ADA-8638-860521B9AB3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4114DF6C-5AFD-427B-899E-95AC8898F692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4114DF6C-5AFD-427B-899E-95AC8898F692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4114DF6C-5AFD-427B-899E-95AC8898F692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4114DF6C-5AFD-427B-899E-95AC8898F692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE82B48-0D7C-4ADA-8638-860521B9AB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE82B48-0D7C-4ADA-8638-860521B9AB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE82B48-0D7C-4ADA-8638-860521B9AB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE82B48-0D7C-4ADA-8638-860521B9AB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33D09A2D-4B4F-4BE9-B747-DDD23C0051F8}
+	EndGlobalSection
+EndGlobal

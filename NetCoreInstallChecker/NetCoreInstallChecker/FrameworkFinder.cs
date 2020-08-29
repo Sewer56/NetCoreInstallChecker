@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using static System.Environment;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using NetCoreInstallChecker.Misc;
 using NetCoreInstallChecker.Structs;
 using NetCoreInstallChecker.Structs.Config;
@@ -23,8 +24,8 @@ namespace NetCoreInstallChecker
 
         public FrameworkFinder(bool is64Bit)
         {
-            var programFiles     = is64Bit ? ExpandEnvironmentVariables("%ProgramW6432%") : ExpandEnvironmentVariables("%ProgramFiles(x86)%");
-            var sharedFolder     = Path.Combine(programFiles, "dotnet/shared");
+            string installFolder = GetInstallFolder(is64Bit);
+            var sharedFolder     = Path.Combine(installFolder, "dotnet/shared");
             var frameworkFolders = Directory.GetDirectories(sharedFolder);
             
             foreach (var folder in frameworkFolders)
@@ -64,5 +65,24 @@ namespace NetCoreInstallChecker
         /// Retrieves all of the available frameworks.
         /// </summary>
         public string[] GetFrameworks() => _frameworks.Keys.ToArray();
+
+        /// <summary>
+        /// Retrieves the folder dotnet would be installed in.
+        /// </summary>
+        private static string GetInstallFolder(bool is64Bit)
+        {
+            string installFolder;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                installFolder = is64Bit ? ExpandEnvironmentVariables("%ProgramW6432%") : ExpandEnvironmentVariables("%ProgramFiles(x86)%");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                installFolder = "/home/user";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                installFolder = "/usr/local/share";
+            else
+                throw new Exception("Unsupported OS, no known global install location.");
+
+            return installFolder;
+        }
     }
 }

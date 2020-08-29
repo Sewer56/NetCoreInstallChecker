@@ -6,6 +6,10 @@ namespace NetCoreInstallChecker.Structs
     public class FrameworkOptionsTuple : Tuple<Framework, RuntimeOptions>
     {
         public Framework Framework      => this.Item1;
+
+        /// <summary>
+        /// [Optional] Missing if dependency is missing or no config file exists.
+        /// </summary>
         public RuntimeOptions Options   => this.Item2;
 
         /// <inheritdoc />

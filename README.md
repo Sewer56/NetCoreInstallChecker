@@ -30,11 +30,11 @@ var finder     = new FrameworkFinder(is64Bit);
 var frameworks = finder.GetFrameworks();
 
 /*
-	frameworks:
-		Microsoft.AspNetCore.All
-		Microsoft.AspNetCore.App
-		Microsoft.NETCore.App
-		Microsoft.WindowsDesktop.App
+    frameworks:
+        Microsoft.AspNetCore.All
+        Microsoft.AspNetCore.App
+        Microsoft.NETCore.App
+        Microsoft.WindowsDesktop.App
 */
 ```
 
@@ -49,9 +49,9 @@ var result    = resolver.Resolve(RuntimeOptions.FromFile(runtimeConfigPath));
 // Check if dependencies are missing.
 if (!result.Available) 
 {
-	// Do something with missing dependencies.
-	// For example:
-	foreach (var dependency in result.MissingDependencies)
+    // Do something with missing dependencies.
+    // For example:
+    foreach (var dependency in result.MissingDependencies)
     {
         Console.WriteLine($"Framework {dependency.Framework.Name} required to run this application is missing.");
         Console.WriteLine($"You can download it using the following URL {dependency.Framework.GetInstallUrl()}");

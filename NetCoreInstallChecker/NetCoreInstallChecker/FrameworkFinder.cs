@@ -26,6 +26,9 @@ namespace NetCoreInstallChecker
         {
             string installFolder = GetInstallFolder(is64Bit);
             var sharedFolder     = Path.Combine(installFolder, "dotnet/shared");
+            if (!Directory.Exists(sharedFolder))
+                return;
+
             var frameworkFolders = Directory.GetDirectories(sharedFolder);
             
             foreach (var folder in frameworkFolders)

@@ -77,7 +77,7 @@ namespace NetCoreInstallChecker
             string installFolder;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                installFolder = is64Bit ? ExpandEnvironmentVariables("%ProgramW6432%") : ExpandEnvironmentVariables("%ProgramFiles(x86)%");
+                installFolder = is64Bit ? ExpandEnvironmentVariables("%ProgramW6432%") : ExpandEnvironmentVariables(IntPtr.Size == 8 ? "%ProgramFiles(x86)%" : "%ProgramFiles%");
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 installFolder = "/home/user";
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))

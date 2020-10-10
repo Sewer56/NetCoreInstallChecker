@@ -33,6 +33,8 @@ namespace NetCoreInstallChecker.Tests
                 _output.WriteLine($"Framework: " + name);
                 _output.WriteLine($"Versions: ");
                 Array.ForEach(configs, x => _output.WriteLine(x.Framework.Version.ToString()));
+                _output.WriteLine($"Locations: ");
+                Array.ForEach(configs, x => _output.WriteLine(x.FolderPath));
                 _output.WriteLine("");
             }
         }

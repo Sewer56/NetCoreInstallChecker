@@ -40,7 +40,7 @@ namespace NetCoreInstallChecker
                 {
                     var version = new NuGetVersion(Path.GetFileName(x));
                     var config  = Actions.TryGetValue(() => RuntimeOptions.FromFile($"{x}//{framework}.runtimeconfig.json"));
-                    return new FrameworkOptionsTuple(new Framework(framework, version.ToString()), config);
+                    return new FrameworkOptionsTuple(new Framework(framework, version.ToString()), config, x);
                 }).ToArray();
             }
         }

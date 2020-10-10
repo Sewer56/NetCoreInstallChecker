@@ -46,7 +46,7 @@ namespace NetCoreInstallChecker
             }
 
             // Perform graph traversal to find out if all dependencies have been found.
-            var tuple = new FrameworkOptionsTuple(null, options);
+            var tuple = new FrameworkOptionsTuple(null, options, null);
             ResolveRecursive(new Node<FrameworkOptionsTuple>(tuple), nodesDict, result);
 
             return result;
@@ -117,7 +117,7 @@ namespace NetCoreInstallChecker
             }
             else
             {
-                result.MissingDependencies.Add(new FrameworkOptionsTuple(dependency, null));
+                result.MissingDependencies.Add(new FrameworkOptionsTuple(dependency, null, null));
             }
         }
     }

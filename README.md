@@ -1,4 +1,5 @@
 # NetCoreInstallChecker
+![NuGet Badge](https://img.shields.io/nuget/v/NetCoreInstallChecker)
 
 NetCoreInstallChecker is a miniature personal use `netstandard2.0` library that allows for the parsing of .NET Core runtime configurations and checking whether the necessary versions of Core are installed to run an application.
 

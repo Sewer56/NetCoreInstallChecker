@@ -13,6 +13,7 @@ Note: This library specifically targets Windows. It should theoretically also ru
 - Generate URL to framework download link.
 - Roll Forward Policies (Core 3+).
 - Minimal Parsing of `runtimeconfig.json`.
+- Targets the official spec at [dotnet/runtime/framework-version-resolution.md](https://github.com/dotnet/runtime/blob/main/docs/design/features/framework-version-resolution.md).
 
 ### Goals
 

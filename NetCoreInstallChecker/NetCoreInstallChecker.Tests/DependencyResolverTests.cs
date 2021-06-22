@@ -27,12 +27,15 @@ namespace NetCoreInstallChecker.Tests
         {
             var finder    = new FrameworkFinder(is64Bit);
             var resolver  = new DependencyResolver(finder);
-            var framework = new Framework("Microsoft.WindowsDesktop.App", "3.0.0");
-            var result    = resolver.Resolve(new RuntimeOptions("netcoreapp3.0", framework, RollForwardPolicy.Minor));
+            var framework = new Framework("Microsoft.WindowsDesktop.App", "5.0.0");
+            var result    = resolver.Resolve(new RuntimeOptions("netcoreapp5.0", framework, RollForwardPolicy.Minor));
 
             _output.WriteLine($"Result: {result.Available}");
             _output.WriteLine($"Missing: {result.MissingDependencies.Count}");
             _output.WriteLine($"Dependencies: {result.Dependencies.Count}");
+            _output.WriteLine($"Download URL (Win, x86): {framework.GetWindowsDownloadUrl(Architecture.x86)}");
+            _output.WriteLine($"Download URL (Win, x64): {framework.GetWindowsDownloadUrl(Architecture.Amd64)}");
+            _output.WriteLine($"Download URL (Win, Arm64): {framework.GetWindowsDownloadUrl(Architecture.Arm64)}");
         }
     }
 }

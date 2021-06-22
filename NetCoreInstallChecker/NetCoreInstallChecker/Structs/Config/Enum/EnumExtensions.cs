@@ -36,5 +36,21 @@ namespace NetCoreInstallChecker.Structs.Config.Enum
             _frameworkNameToStringMap.TryGetValue(name, out var value);
             return value;
         }
+
+        /// <summary>
+        /// Gets the name used in download URLs for a particular architecture.
+        /// </summary>
+        /// <param name="arch">The architecture to get url for.</param>
+        public static string ToString(this Architecture arch)
+        {
+            return arch switch
+            {
+                Architecture.Amd64 => "x64",
+                Architecture.x86 => "x86",
+                Architecture.Arm => "arm",
+                Architecture.Arm64 => "arm64",
+                _ => throw new NotImplementedException("Unknown architecture"),
+            };
+        }
     }
 }

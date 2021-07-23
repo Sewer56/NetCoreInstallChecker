@@ -12,6 +12,7 @@ Note: This library specifically targets Windows. It should theoretically also ru
 - Detect all globally installed frameworks.
 - Generate URL to framework download link.
 - Roll Forward Policies (Core 3+).
+- Multiple required frameworks in `RuntimeConfig.json` (.NET 6.0+)
 - Minimal Parsing of `runtimeconfig.json`.
 - Targets the official spec at [dotnet/runtime/framework-version-resolution.md](https://github.com/dotnet/runtime/blob/main/docs/design/features/framework-version-resolution.md).
 

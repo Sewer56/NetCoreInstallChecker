@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using NetCoreInstallChecker.Structs.Config.Enum;
@@ -25,15 +26,45 @@ namespace NetCoreInstallChecker.Structs.Config
         public Framework Framework { get; set; }
 
         /// <summary>
+        /// Used when there is more than 1 framework.
+        /// Contains the required framework names (e.g. Microsoft.WindowsDesktop.App) and version.
+        /// </summary>
+        [JsonPropertyName("frameworks")]
+        public List<Framework> Frameworks { get; set; }
+
+        /// <summary>
         /// The policy that defines are safe to pick.
         /// </summary>
         [JsonPropertyName("rollForward")]
         public RollForwardPolicy RollForward { get; set; }
 
+        /// <summary>
+        /// Returns all frameworks required by this RuntimeOptions instance; using a combination of all in
+        /// the <see cref="Frameworks"/> field and <see cref="Framework"/> field.
+        /// </summary>
+        public List<Framework> GetAllFrameworks()
+        {
+            var frameworks = new List<Framework>();
+            if (Frameworks != null && Frameworks.Count > 0)
+                frameworks.AddRange(Frameworks);
+            
+            if (Framework != null)
+                frameworks.Add(Framework);
+
+            return frameworks;
+        }
+
         public RuntimeOptions(string tfm, Framework framework, RollForwardPolicy rollForward)
         {
             Tfm = tfm;
             Framework = framework;
+            RollForward = rollForward;
+        }
+
+        public RuntimeOptions(string tfm, List<Framework> frameworks, RollForwardPolicy rollForward)
+        {
+            Tfm = tfm;
+            Frameworks = frameworks;
             RollForward = rollForward;
         }
 

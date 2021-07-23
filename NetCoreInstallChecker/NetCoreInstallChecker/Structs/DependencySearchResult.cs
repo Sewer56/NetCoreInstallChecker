@@ -2,17 +2,17 @@
 
 namespace NetCoreInstallChecker.Structs
 {
-    public class DependencySearchResult<T>
+    public class DependencySearchResult<TFound, TNotFound>
     {
         /// <summary>
         /// Represents the resolved dependencies for the current item.
         /// </summary>
-        public HashSet<T> Dependencies             { get; } = new HashSet<T>();
+        public HashSet<TFound> Dependencies             { get; } = new HashSet<TFound>();
 
         /// <summary>
         /// Represents the missing dependencies for the current item.
         /// </summary>
-        public HashSet<T> MissingDependencies      { get; } = new HashSet<T>();
+        public HashSet<TNotFound> MissingDependencies   { get; } = new HashSet<TNotFound>();
 
         /// <summary>
         /// True if all dependencies are available.

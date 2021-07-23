@@ -1,4 +1,6 @@
-﻿namespace NetCoreInstallChecker.Structs
+﻿using System.Collections.Generic;
+
+namespace NetCoreInstallChecker.Structs
 {
     /// <summary>
     /// Represents an individual node within a graph.
@@ -18,7 +20,7 @@
         /// <summary>
         /// Stores the child (dependency) of the current node.
         /// </summary>
-        public Node<T> Edge;
+        public List<Node<T>> Edges = new List<Node<T>>();
 
         public Node(T element)
         {

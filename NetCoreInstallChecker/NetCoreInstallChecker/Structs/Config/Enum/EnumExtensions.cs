@@ -38,9 +38,61 @@ namespace NetCoreInstallChecker.Structs.Config.Enum
         }
 
         /// <summary>
-        /// Gets the name used in download URLs for a particular architecture.
+        /// Gets the name used in download URLs for a specific platform.
         /// </summary>
-        /// <param name="arch">The architecture to get url for.</param>
+        /// <param name="platform">The platform to get the url for.</param>
+        public static string ToString(this Platform platform)
+        {
+            return platform switch
+            {
+                Platform.Windows => "win",
+                Platform.Linux => "linux",
+                Platform.OSX => "osx",
+                Platform.LinuxMusl => "linux-musl",
+                _ => throw new ArgumentOutOfRangeException(nameof(platform), platform, null)
+            };
+        }
+
+        /// <summary>
+        /// Gets the extension used in download URLs for a specific platform.
+        /// </summary>
+        /// <param name="format">The format to get the extension for.</param>
+        /// <param name="platform">The platform to get the extension for.</param>
+        public static string ToString(this Format format, Platform platform)
+        {
+            switch (platform)
+            {
+                case Platform.Windows:
+                    return format switch
+                    {
+                        Format.Archive => "zip",
+                        Format.Executable => "exe",
+                        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
+                    };
+                case Platform.Linux:
+                case Platform.LinuxMusl:
+                    return format switch
+                    {
+                        Format.Archive => "tar.gz",
+                        Format.Executable => throw new NotSupportedException("Linux platform with executable format is not supported."),
+                        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
+                    };
+                case Platform.OSX:
+                    return format switch
+                    {
+                        Format.Archive => "tar.gz",
+                        Format.Executable => "pkg",
+                        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
+                    };
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
+            }
+        }
+
+        /// <summary>
+        /// Gets the name identifier used in download URLs for a particular architecture.
+        /// </summary>
+        /// <param name="arch">The architecture to get identifier for.</param>
         public static string ToString(this Architecture arch)
         {
             return arch switch
@@ -50,6 +102,21 @@ namespace NetCoreInstallChecker.Structs.Config.Enum
                 Architecture.Arm => "arm",
                 Architecture.Arm64 => "arm64",
                 _ => throw new NotImplementedException("Unknown architecture"),
+            };
+        }
+
+        /// <summary>
+        /// Gets the download directory for the provided framework name.
+        /// </summary>
+        /// <param name="frameworkName">The framework.</param>
+        public static string ToDownloadDirectory(this FrameworkName frameworkName)
+        {
+            return frameworkName switch
+            {
+                FrameworkName.App => "Runtime",
+                FrameworkName.Asp => "aspnetcore/Runtime",
+                FrameworkName.WindowsDesktop => "WindowsDesktop",
+                _ => throw new ArgumentOutOfRangeException(nameof(frameworkName), frameworkName, null)
             };
         }
     }

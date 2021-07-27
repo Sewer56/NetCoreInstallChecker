@@ -37,48 +37,6 @@ namespace NetCoreInstallChecker.Structs.Config
         /// Converts the version string into a NuGet version.
         /// </summary>
         public NuGetVersion NuGetVersion => new NuGetVersion(Version);
-        
-        /// <summary>
-        /// Gets the URL to the download for a given framework and version targeting Windows.
-        /// </summary>
-        public string GetWindowsDownloadUrl(Architecture arch, Format format = Format.Archive)
-        {
-            var baseUrl = "https://dotnetcli.azureedge.net/dotnet";
-            var extension = format switch
-            {
-                Format.Archive => ".zip",
-                Format.Executable => ".exe",
-                _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
-            };
-
-            switch (FrameworkName)
-            {
-                case FrameworkName.App:
-                    return baseUrl + $"/Runtime/{Version}/dotnet-runtime-{Version}-win-{EnumExtensions.ToString(arch)}.{extension}";
-                case FrameworkName.Asp:
-                    return baseUrl + $"/aspnetcore/Runtime/{Version}/aspnetcore-runtime-{Version}-win-{EnumExtensions.ToString(arch)}.{extension}";
-                case FrameworkName.WindowsDesktop:
-                    // The windows desktop runtime is part of the core runtime layout prior to 5.0
-                    if (NuGetVersion >= new NuGetVersion("5.0.0"))
-                    {
-                        return baseUrl + $"/WindowsDesktop/{Version}/windowsdesktop-runtime-{Version}-win-{EnumExtensions.ToString(arch)}.{extension}";
-                    }
-                    else
-                    {
-                        return baseUrl + $"/Runtime/{Version}/windowsdesktop-runtime-{Version}-win-{EnumExtensions.ToString(arch)}.{extension}";
-                    }
-                default:
-                    throw new ArgumentOutOfRangeException("Unsupported framework for URL acquiring", (Exception)null);
-            }
-        }
-
-        /// <summary>
-        /// Gets the URL to the install page for a given framework and version.
-        /// </summary>
-        public string GetInstallUrl()
-        {
-            return $"https://aka.ms/dotnet-core-applaunch?framework={Name}&framework_version={Version}";
-        }
 
         /// <inheritdoc />
         public override string ToString() => Name;

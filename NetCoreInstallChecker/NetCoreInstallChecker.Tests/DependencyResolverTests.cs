@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NetCoreInstallChecker.Structs.Config;
 using NetCoreInstallChecker.Structs.Config.Enum;
+using NuGet.Versioning;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -34,9 +35,6 @@ namespace NetCoreInstallChecker.Tests
             _output.WriteLine($"Result: {result.Available}");
             _output.WriteLine($"Missing: {result.MissingDependencies.Count}");
             _output.WriteLine($"Dependencies: {result.Dependencies.Count}");
-            _output.WriteLine($"Download URL (Win, x86): {framework.GetWindowsDownloadUrl(Architecture.x86)}");
-            _output.WriteLine($"Download URL (Win, x64): {framework.GetWindowsDownloadUrl(Architecture.Amd64)}");
-            _output.WriteLine($"Download URL (Win, Arm64): {framework.GetWindowsDownloadUrl(Architecture.Arm64)}");
         }
 
         [Fact]
@@ -51,7 +49,6 @@ namespace NetCoreInstallChecker.Tests
             };
 
             var result = resolver.Resolve(new RuntimeOptions("net6.0", frameworks, RollForwardPolicy.Minor));
-
             _output.WriteLine($"Result: {result.Available}");
             _output.WriteLine($"Missing: {result.MissingDependencies.Count}");
             _output.WriteLine($"Dependencies: {result.Dependencies.Count}");

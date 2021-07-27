@@ -76,7 +76,7 @@ namespace NetCoreInstallChecker.Structs.Config
         /// <param name="filePath">Physical path to the file.</param>
         public static RuntimeOptions FromFile(string filePath)
         {
-            return File.Exists(filePath) ? FromJson(File.ReadAllText(filePath)) : null;
+            return System.IO.File.Exists(filePath) ? FromJson(System.IO.File.ReadAllText(filePath)) : null;
         }
 
         /// <summary>

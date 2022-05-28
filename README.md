@@ -56,8 +56,9 @@ if (!result.Available)
     // For example:
     foreach (var dependency in result.MissingDependencies)
     {
-        Console.WriteLine($"Framework {dependency.Framework.Name} required to run this application is missing.");
-        Console.WriteLine($"You can download it using the following URL {dependency.Framework.GetInstallUrl()}");
+        var downloader = new FrameworkDownloader(dependency.NuGetVersion, dependency.FrameworkName);
+        Console.WriteLine($"Framework {dependency.Name} required to run this application is missing.");
+        Console.WriteLine($"You can download it using the following URL {await downloader.GetDownloadUrlAsync(Architecture.x86)}");
     }
 }
 ```

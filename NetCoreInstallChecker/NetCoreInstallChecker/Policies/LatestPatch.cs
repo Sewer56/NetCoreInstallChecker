@@ -29,7 +29,7 @@ namespace NetCoreInstallChecker.Policies
                     supportedVersion = ver;
             }
 
-            return supportedVersion != null;
+            return supportedVersion != null && supportedVersion >= version;
         }
     }
 }

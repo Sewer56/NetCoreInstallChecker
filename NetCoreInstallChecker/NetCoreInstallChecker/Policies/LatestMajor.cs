@@ -10,7 +10,6 @@ namespace NetCoreInstallChecker.Policies
             out NuGetVersion supportedVersion)
         {
             int major = version.Major;
-            int minor = version.Minor;
             supportedVersion = null;
 
             foreach (var ver in versions)
@@ -39,7 +38,7 @@ namespace NetCoreInstallChecker.Policies
                     supportedVersion = ver;
             }
 
-            return supportedVersion != null;
+            return supportedVersion != null && supportedVersion >= version;
         }
     }
 }

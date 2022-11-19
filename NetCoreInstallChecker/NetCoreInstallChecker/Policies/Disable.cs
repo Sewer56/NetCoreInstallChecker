@@ -16,10 +16,11 @@ namespace NetCoreInstallChecker.Policies
             int major = version.Major;
             int minor = version.Minor;
             int patch = version.Patch;
-
+            var release = version.Release;
+            
             foreach (var ver in versions)
             {
-                if (ver.Major == major && ver.Minor == minor && ver.Patch == patch)
+                if (ver.Major == major && ver.Minor == minor && ver.Patch == patch && ver.Release == release)
                 {
                     supportedVersion = ver;
                     return true;

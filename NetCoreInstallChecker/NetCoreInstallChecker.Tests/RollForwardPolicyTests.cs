@@ -88,10 +88,10 @@ namespace NetCoreInstallChecker.Tests
         public void LatestMajor()
         {
             var policy = new LatestMajor();
-            Assert(policy, true, new NuGetVersion("5.1.2"), Version);
-            Assert(policy, true, new NuGetVersion("5.1.2"), UnsupportedMajor);
-            Assert(policy, true, new NuGetVersion("5.1.2"), UnsupportedPatch);
-            Assert(policy, true, new NuGetVersion("5.1.2"), UnsupportedMinor);
+            Assert(policy, true, VersionPreview, Version);
+            Assert(policy, true, VersionPreview, UnsupportedMajor);
+            Assert(policy, true, VersionPreview, UnsupportedPatch);
+            Assert(policy, true, VersionPreview, UnsupportedMinor);
         }
 
         [Fact]
@@ -116,7 +116,9 @@ namespace NetCoreInstallChecker.Tests
         {
             bool supported = policy.TryGetSupportedVersion(version, AvailableVersions, out var ver);
             Xunit.Assert.Equal(isSupported, supported);
-            Xunit.Assert.Equal(expected, ver);
+            
+            if (isSupported)
+                Xunit.Assert.Equal(expected, ver);
         }
     }
 }

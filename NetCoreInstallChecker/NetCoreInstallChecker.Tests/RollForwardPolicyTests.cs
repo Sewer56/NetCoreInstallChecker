@@ -8,6 +8,7 @@ namespace NetCoreInstallChecker.Tests
     public class RollForwardPolicyTests
     {
         public static readonly NuGetVersion Version             = new NuGetVersion("3.0.0");
+        public static readonly NuGetVersion VersionPreview      = new NuGetVersion("7.0.0-rc.2.22472.3");
         public static readonly NuGetVersion UnsupportedMinor    = new NuGetVersion("3.3.0");
         public static readonly NuGetVersion UnsupportedPatch    = new NuGetVersion("3.0.1");
         public static readonly NuGetVersion UnsupportedMajor    = new NuGetVersion("2.0.0");
@@ -25,7 +26,8 @@ namespace NetCoreInstallChecker.Tests
             new NuGetVersion("5.0.0-preview.7.20366.1"),
             new NuGetVersion("5.0.0"),
             new NuGetVersion("5.0.7"),
-            new NuGetVersion("5.1.2")
+            new NuGetVersion("5.1.2"),
+            new NuGetVersion("7.0.0-rc.2.22472.3")
         };
 
         [Fact]
@@ -100,6 +102,14 @@ namespace NetCoreInstallChecker.Tests
             Assert(policy, false, null, UnsupportedMajor);
             Assert(policy, false, null, UnsupportedPatch);
             Assert(policy, false, null, UnsupportedMinor);
+        }
+        
+        [Fact]
+        public void NoRollForwardOnPreview()
+        {
+            // If user has preview runtime but application targets release 
+            var policy = new Minor(); // default
+            Assert(policy, false, null, new NuGetVersion("7.0.0"));
         }
 
         private static void Assert(IRollForwardPolicy policy, bool isSupported, NuGetVersion expected, NuGetVersion version)

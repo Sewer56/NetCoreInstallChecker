@@ -36,12 +36,25 @@ namespace NetCoreInstallChecker
                 var versions  = Directory.GetDirectories(folder);
                 var framework = Path.GetFileName(folder);
 
-                _frameworks[framework] = versions.Select(x =>
+                var v = versions.Select(x =>
                 {
-                    var version = new NuGetVersion(Path.GetFileName(x));
-                    var config  = Actions.TryGetValue(() => RuntimeOptions.FromFile($"{x}//{framework}.runtimeconfig.json"));
-                    return new FrameworkOptionsTuple(new Framework(framework, version.ToString()), config, x);
-                }).ToArray();
+                   try
+                   {
+                       var version = new NuGetVersion(Path.GetFileName(x));
+                       var config  = Actions.TryGetValue(() => RuntimeOptions.FromFile($"{x}//{framework}.runtimeconfig.json"));
+                       return new FrameworkOptionsTuple(new Framework(framework, version.ToString()), config, x);
+                   }
+                   catch (Exception)
+                   {
+                       // Some versions of tModLoader reportedly dump libraries
+                       // inside the 'shared' folder. 😅 oh my... how mischievous
+                       return null;
+                   }
+                }).Where(x => x != null)
+                .ToArray();
+
+                if (v.Length > 0)
+                    _frameworks[framework] = v;
             }
         }
 

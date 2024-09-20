@@ -10,7 +10,7 @@ public class RuntimeOptions
     private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
 #if NET8_0_OR_GREATER
-            TypeInfoResolver = RuntimeOptionsContext.Default,
+            TypeInfoResolver = RuntimeConfigContext.Default,
 #endif
         Converters = { new JsonStringEnumConverter() }
     };
@@ -99,8 +99,8 @@ public class RuntimeOptions
     
 #if NET8_0_OR_GREATER
     [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
-    [JsonSerializable(typeof(RuntimeOptions))]
-    internal partial class RuntimeOptionsContext : JsonSerializerContext
+    [JsonSerializable(typeof(RuntimeConfig))]
+    internal partial class RuntimeConfigContext : JsonSerializerContext
     {
     }
 #endif

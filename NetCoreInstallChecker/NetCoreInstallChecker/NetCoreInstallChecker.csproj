@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/Sewer56/NetCoreInstallChecker</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>10</LangVersion>
     <NoWarn>CS1591</NoWarn>

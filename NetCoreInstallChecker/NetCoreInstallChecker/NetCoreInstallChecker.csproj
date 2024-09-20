@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net8.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Authors>Sewer56</Authors>
     <Product />
     <Description>Personal use library used for verifying whether .NET Core is installed, including framework dependency resolution.</Description>
-    <Copyright></Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Sewer56/NetCoreInstallChecker</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -14,11 +13,19 @@
     <Version>3.0.2</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>preview</LangVersion>
+
+    <!-- Trimming support -->
+    <IsTrimmable>true</IsTrimmable>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <TrimMode>link</TrimMode>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NuGet.Versioning" Version="5.7.0" />
-    <PackageReference Include="System.Text.Json" Version="4.7.2" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
 </Project>

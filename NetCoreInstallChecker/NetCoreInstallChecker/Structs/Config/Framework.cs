@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using NetCoreInstallChecker.Structs.Config.Enum;
 using NuGet.Versioning;
 using FrameworkName = NetCoreInstallChecker.Structs.Config.Enum.FrameworkName;

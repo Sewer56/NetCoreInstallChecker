@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using NetCoreInstallChecker.Structs.Config.Enum;
@@ -8,9 +7,12 @@ namespace NetCoreInstallChecker.Structs.Config
 {
     public class RuntimeOptions
     {
-        private static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
-            Converters = { new JsonStringEnumConverter() },
+            #if NET8_0_OR_GREATER
+            TypeInfoResolver = RuntimeOptionsContext.Default,
+            #endif
+            Converters = { new JsonStringEnumConverter() }
         };
 
         /// <summary>
@@ -85,10 +87,21 @@ namespace NetCoreInstallChecker.Structs.Config
         /// <param name="json">Serialized text data.</param>
         public static RuntimeOptions FromJson(string json)
         {
-            return JsonSerializer.Deserialize<RuntimeConfig>(json, _jsonSerializerOptions).RuntimeOptions;
+#pragma warning disable IL2026
+            // TRIM Warning: We set TypeInfoResolver manually on the type.
+            return JsonSerializer.Deserialize<RuntimeConfig>(json, _jsonSerializerOptions)?.RuntimeOptions;
+#pragma warning restore IL2026
         }
 
         /// <inheritdoc />
         public override string ToString() => $"{Tfm} // {Framework}";
     }
+    
+#if NET8_0_OR_GREATER
+    [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
+    [JsonSerializable(typeof(RuntimeOptions))]
+    internal partial class RuntimeOptionsContext : JsonSerializerContext
+    {
+    }
+#endif
 }

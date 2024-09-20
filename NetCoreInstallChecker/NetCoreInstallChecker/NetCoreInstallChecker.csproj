@@ -12,7 +12,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>3.0.2</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>10</LangVersion>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 

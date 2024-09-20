@@ -1,13 +1,12 @@
-﻿namespace NetCoreInstallChecker.Structs.Config.Enum
+﻿namespace NetCoreInstallChecker.Structs.Config.Enum;
+
+/// <summary>
+/// Describes the desired download platform for the download link.
+/// </summary>
+public enum Platform
 {
-    /// <summary>
-    /// Describes the desired download platform for the download link.
-    /// </summary>
-    public enum Platform
-    {
-        Windows,
-        Linux,
-        OSX,
-        LinuxMusl
-    }
+    Windows,
+    Linux,
+    OSX,
+    LinuxMusl
 }

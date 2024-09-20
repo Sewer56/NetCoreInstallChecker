@@ -2,43 +2,42 @@
 using NetCoreInstallChecker.Interfaces;
 using NuGet.Versioning;
 
-namespace NetCoreInstallChecker.Policies
+namespace NetCoreInstallChecker.Policies;
+
+public class LatestMajor : IRollForwardPolicy
 {
-    public class LatestMajor : IRollForwardPolicy
+    public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
+        out NuGetVersion supportedVersion)
     {
-        public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
-            out NuGetVersion supportedVersion)
+        int major = version.Major;
+        supportedVersion = null;
+
+        foreach (var ver in versions)
         {
-            int major = version.Major;
-            supportedVersion = null;
+            // Discard if incompatible.
+            if (ver.Major < major)
+                continue;
 
-            foreach (var ver in versions)
+            if (supportedVersion == null)
+                supportedVersion = ver;
+
+            // Highest major version.
+            if (ver.Major > supportedVersion.Major)
             {
-                // Discard if incompatible.
-                if (ver.Major < major)
-                    continue;
-
-                if (supportedVersion == null)
-                    supportedVersion = ver;
-
-                // Highest major version.
-                if (ver.Major > supportedVersion.Major)
-                {
-                    supportedVersion = ver;
-                    continue;
-                }
-
-                if (ver.Minor > supportedVersion.Minor)
-                {
-                    supportedVersion = ver;
-                    continue;
-                }
-
-                if (ver.Patch > supportedVersion.Patch)
-                    supportedVersion = ver;
+                supportedVersion = ver;
+                continue;
             }
 
-            return supportedVersion != null && supportedVersion >= version;
+            if (ver.Minor > supportedVersion.Minor)
+            {
+                supportedVersion = ver;
+                continue;
+            }
+
+            if (ver.Patch > supportedVersion.Patch)
+                supportedVersion = ver;
         }
+
+        return supportedVersion != null && supportedVersion >= version;
     }
 }

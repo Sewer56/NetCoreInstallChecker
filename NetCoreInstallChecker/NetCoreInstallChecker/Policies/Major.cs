@@ -2,52 +2,51 @@
 using NetCoreInstallChecker.Interfaces;
 using NuGet.Versioning;
 
-namespace NetCoreInstallChecker.Policies
+namespace NetCoreInstallChecker.Policies;
+
+public class Major : IRollForwardPolicy
 {
-    public class Major : IRollForwardPolicy
+    public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
+        out NuGetVersion supportedVersion)
     {
-        public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
-            out NuGetVersion supportedVersion)
+        // Use LatestPatch policy if requested minor is present.
+        if (Minor.Instance.TryGetSupportedVersion(version, versions, out supportedVersion))
+            return true;
+
+        int major = version.Major;
+        supportedVersion = null;
+
+        foreach (var ver in versions)
         {
-            // Use LatestPatch policy if requested minor is present.
-            if (Minor.Instance.TryGetSupportedVersion(version, versions, out supportedVersion))
-                return true;
+            // Discard if incompatible.
+            if (ver.Major < major)
+                continue;
 
-            int major = version.Major;
-            supportedVersion = null;
+            if (supportedVersion == null)
+                supportedVersion = ver;
 
-            foreach (var ver in versions)
+            // Lowest major version.
+            if (ver.Major < supportedVersion.Major)
             {
-                // Discard if incompatible.
-                if (ver.Major < major)
-                    continue;
-
-                if (supportedVersion == null)
-                    supportedVersion = ver;
-
-                // Lowest major version.
-                if (ver.Major < supportedVersion.Major)
+                supportedVersion = ver;
+                continue;
+            }
+            else if (ver.Major == supportedVersion.Major)
+            {
+                // Lowest minor version.
+                if (ver.Minor < supportedVersion.Minor)
                 {
                     supportedVersion = ver;
                     continue;
                 }
-                else if (ver.Major == supportedVersion.Major)
+                else if (ver.Minor == supportedVersion.Minor)
                 {
-                    // Lowest minor version.
-                    if (ver.Minor < supportedVersion.Minor)
-                    {
+                    if (ver.Patch > supportedVersion.Patch)
                         supportedVersion = ver;
-                        continue;
-                    }
-                    else if (ver.Minor == supportedVersion.Minor)
-                    {
-                        if (ver.Patch > supportedVersion.Patch)
-                            supportedVersion = ver;
-                    }
                 }
             }
-
-            return supportedVersion != null && supportedVersion >= version;
         }
+
+        return supportedVersion != null && supportedVersion >= version;
     }
 }

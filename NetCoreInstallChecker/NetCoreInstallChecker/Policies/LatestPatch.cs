@@ -2,34 +2,33 @@
 using NetCoreInstallChecker.Interfaces;
 using NuGet.Versioning;
 
-namespace NetCoreInstallChecker.Policies
+namespace NetCoreInstallChecker.Policies;
+
+public class LatestPatch : IRollForwardPolicy
 {
-    public class LatestPatch : IRollForwardPolicy
+    public static LatestPatch Instance = new();
+
+    public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
+        out NuGetVersion supportedVersion)
     {
-        public static LatestPatch Instance = new LatestPatch();
+        int major = version.Major;
+        int minor = version.Minor;
+        supportedVersion = null;
 
-        public bool TryGetSupportedVersion(NuGetVersion version, IEnumerable<NuGetVersion> versions,
-            out NuGetVersion supportedVersion)
+        foreach (var ver in versions)
         {
-            int major = version.Major;
-            int minor = version.Minor;
-            supportedVersion = null;
+            // Discard if incompatible.
+            if (ver.Major != major || ver.Minor != minor)
+                continue;
 
-            foreach (var ver in versions)
-            {
-                // Discard if incompatible.
-                if (ver.Major != major || ver.Minor != minor)
-                    continue;
+            if (supportedVersion == null)
+                supportedVersion = ver;
 
-                if (supportedVersion == null)
-                    supportedVersion = ver;
-
-                // Latest patch.
-                if (ver.Patch > supportedVersion.Patch)
-                    supportedVersion = ver;
-            }
-
-            return supportedVersion != null && supportedVersion >= version;
+            // Latest patch.
+            if (ver.Patch > supportedVersion.Patch)
+                supportedVersion = ver;
         }
+
+        return supportedVersion != null && supportedVersion >= version;
     }
 }

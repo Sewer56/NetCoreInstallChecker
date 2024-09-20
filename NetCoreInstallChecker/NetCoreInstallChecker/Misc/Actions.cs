@@ -1,24 +1,23 @@
 ﻿using System;
 
-namespace NetCoreInstallChecker.Misc
+namespace NetCoreInstallChecker.Misc;
+
+public static class Actions
 {
-    public static class Actions
+    /// <summary>
+    /// Tries to get a given value.
+    /// </summary>
+    /// <param name="function">The function to execute.</param>
+    /// <returns>A value if applicable.</returns>
+    public static T TryGetValue<T>(Func<T> function)
     {
-        /// <summary>
-        /// Tries to get a given value.
-        /// </summary>
-        /// <param name="function">The function to execute.</param>
-        /// <returns>A value if applicable.</returns>
-        public static T TryGetValue<T>(Func<T> function)
+        try
         {
-            try
-            {
-                return function();
-            }
-            catch (Exception)
-            {
-                return default(T);
-            }
+            return function();
+        }
+        catch (Exception)
+        {
+            return default(T);
         }
     }
 }

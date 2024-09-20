@@ -7,27 +7,27 @@ namespace NetCoreInstallChecker.Tests
 {
     public class RollForwardPolicyTests
     {
-        public static readonly NuGetVersion Version             = new NuGetVersion("3.0.0");
-        public static readonly NuGetVersion VersionPreview      = new NuGetVersion("7.0.0-rc.2.22472.3");
-        public static readonly NuGetVersion UnsupportedMinor    = new NuGetVersion("3.3.0");
-        public static readonly NuGetVersion UnsupportedPatch    = new NuGetVersion("3.0.1");
-        public static readonly NuGetVersion UnsupportedMajor    = new NuGetVersion("2.0.0");
+        public static readonly NuGetVersion Version          = new("3.0.0");
+        public static readonly NuGetVersion VersionPreview   = new("7.0.0-rc.2.22472.3");
+        public static readonly NuGetVersion UnsupportedMinor = new("3.3.0");
+        public static readonly NuGetVersion UnsupportedPatch = new("3.0.1");
+        public static readonly NuGetVersion UnsupportedMajor = new("2.0.0");
 
         public static NuGetVersion[] AvailableVersions => new NuGetVersion[]
         {
-            new NuGetVersion("3.0.0"),
-            new NuGetVersion("3.0.2"),
-            new NuGetVersion("3.1.0"),
-            new NuGetVersion("3.1.6"),
-            new NuGetVersion("3.2.0"),
+            new("3.0.0"),
+            new("3.0.2"),
+            new("3.1.0"),
+            new("3.1.6"),
+            new("3.2.0"),
 
-            new NuGetVersion("3.4.0"),
-            new NuGetVersion("3.4.3"),
-            new NuGetVersion("5.0.0-preview.7.20366.1"),
-            new NuGetVersion("5.0.0"),
-            new NuGetVersion("5.0.7"),
-            new NuGetVersion("5.1.2"),
-            new NuGetVersion("7.0.0-rc.2.22472.3")
+            new("3.4.0"),
+            new("3.4.3"),
+            new("5.0.0-preview.7.20366.1"),
+            new("5.0.0"),
+            new("5.0.7"),
+            new("5.1.2"),
+            new("7.0.0-rc.2.22472.3")
         };
 
         [Fact]

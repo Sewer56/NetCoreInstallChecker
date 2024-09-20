@@ -1,25 +1,24 @@
-﻿namespace NetCoreInstallChecker.Structs.Config.Enum
+﻿namespace NetCoreInstallChecker.Structs.Config.Enum;
+
+public enum FrameworkName
 {
-    public enum FrameworkName
-    {
-        /// <summary>
-        /// Unknown framework name.
-        /// </summary>
-        Null,
+    /// <summary>
+    /// Unknown framework name.
+    /// </summary>
+    Null,
 
-        /// <summary>
-        /// Microsoft.NETCore.App
-        /// </summary>
-        App,
+    /// <summary>
+    /// Microsoft.NETCore.App
+    /// </summary>
+    App,
 
-        /// <summary>
-        /// Microsoft.AspNetCore.App
-        /// </summary>
-        Asp,
+    /// <summary>
+    /// Microsoft.AspNetCore.App
+    /// </summary>
+    Asp,
 
-        /// <summary>
-        /// Microsoft.WindowsDesktop.App
-        /// </summary>
-        WindowsDesktop
-    }
+    /// <summary>
+    /// Microsoft.WindowsDesktop.App
+    /// </summary>
+    WindowsDesktop
 }
